@@ -8,6 +8,10 @@
 
 > **A curated, zero-runtime-dependency toolkit of security, configuration, and documentation linters for modern Git repositories and GitHub Actions.**
 
+<p align="center">
+  <img src="assets/demo.png" alt="Developer Quality Toolkit CLI Demo" width="850">
+</p>
+
 ---
 
 ## 🌟 The Toolkit Suite

@@ -74,7 +74,7 @@
   <main class="max-w-7xl w-full mx-auto px-6 py-8 flex-1 flex flex-col gap-8">
 
     <!-- Top Metrics Overview -->
-    <section class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <section class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
       <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800/80 flex flex-col justify-between">
         <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Canlı Projeler</span>
         <div class="mt-2 flex items-baseline gap-2">
@@ -103,19 +103,34 @@
           <span class="text-xs font-medium text-slate-400">%100 Temiz</span>
         </div>
       </div>
+      <!-- Kalite Skoru Yanındaki AI Onaylı Projeler Kartı -->
+      <div onclick="switchTab('ai-approved')" class="cursor-pointer p-5 rounded-2xl bg-gradient-to-br from-indigo-950/80 via-purple-950/40 to-slate-900 border border-indigo-500/40 hover:border-indigo-400 flex flex-col justify-between transition group shadow-lg shadow-indigo-950/50">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold uppercase tracking-wider text-indigo-300">⭐ AI Onaylı Projeler</span>
+          <span class="px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 text-[10px] font-bold border border-indigo-500/40 animate-pulse">ÖNERİLEN</span>
+        </div>
+        <div class="mt-2 flex items-baseline gap-2">
+          <span class="text-3xl font-extrabold text-indigo-300">7</span>
+          <span class="text-xs font-medium text-emerald-400 group-hover:translate-x-1 transition">Projeleri Seç →</span>
+        </div>
+      </div>
     </section>
 
     <!-- Navigation Tabs -->
-    <div class="flex items-center gap-2 border-b border-slate-800">
-      <button onclick="switchTab('projects')" id="tab-btn-projects" class="px-5 py-3 font-semibold text-sm border-b-2 border-emerald-500 text-emerald-400 flex items-center gap-2">
+    <div class="flex items-center gap-2 border-b border-slate-800 overflow-x-auto">
+      <button onclick="switchTab('projects')" id="tab-btn-projects" class="px-5 py-3 font-semibold text-sm border-b-2 border-emerald-500 text-emerald-400 flex items-center gap-2 whitespace-nowrap">
         <span>🚀 Canlı Projeler & Araçlar</span>
         <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 text-xs">4</span>
       </button>
-      <button onclick="switchTab('ideas')" id="tab-btn-ideas" class="px-5 py-3 font-semibold text-sm border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-2">
-        <span>💡 Ürün & Fikir Havuzu</span>
+      <button onclick="switchTab('ai-approved')" id="tab-btn-ai-approved" class="px-5 py-3 font-semibold text-sm border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-2 whitespace-nowrap">
+        <span>🤖 Antigravity AI Onaylı Projeler & Mimari Öneriler</span>
+        <span class="px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-bold border border-indigo-500/40">7 Seçkin</span>
+      </button>
+      <button onclick="switchTab('ideas')" id="tab-btn-ideas" class="px-5 py-3 font-semibold text-sm border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-2 whitespace-nowrap">
+        <span>💡 Tüm Ürün & Fikir Havuzu</span>
         <span class="px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 text-xs" id="ideas-badge-count">1906</span>
       </button>
-      <button onclick="switchTab('auditor')" id="tab-btn-auditor" class="px-5 py-3 font-semibold text-sm border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-2">
+      <button onclick="switchTab('auditor')" id="tab-btn-auditor" class="px-5 py-3 font-semibold text-sm border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-2 whitespace-nowrap">
         <span>🔍 Canlı Repo Denetçisi (GitAuditor)</span>
       </button>
     </div>
@@ -131,6 +146,32 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="projects-grid">
         <!-- Loaded by JS -->
+      </div>
+    </section>
+
+    <!-- TAB: ANTIGRAVITY AI ONAYLI SEÇKİN PROJELER & MİMARİ ÖNERİLER -->
+    <section id="tab-ai-approved" class="space-y-6 hidden">
+      <div class="p-6 rounded-3xl bg-gradient-to-r from-indigo-950/70 via-slate-900 to-slate-950 border border-indigo-500/30 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 font-mono text-xs font-bold border border-indigo-500/30">🤖 Antigravity AI Mimari İncelemesi</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-mono text-xs font-bold border border-emerald-500/30">100/100 Kalite Skoru</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-mono text-xs font-bold border border-amber-500/30">Hemen Başlanabilir</span>
+          </div>
+          <h2 class="text-xl font-extrabold text-white tracking-tight">Antigravity Tarafından İncelenip Onaylanan 7 Yıldız Proje</h2>
+          <p class="text-sm text-slate-300 max-w-3xl leading-relaxed">
+            1.906 fikir arasından pazar ihtiyacı, sıfır harici API kısıtı ve terminal verimliliği kriterlerine göre titizlikle seçildi. Her projenin altında <strong>uygulama önerisi, mimari kurgusu ve CLI sözdizimi</strong> yer alıyor. Beğendiğiniz projeyi seçip <strong>"Bu Projeyle Devam Edelim"</strong> diyebilirsiniz!
+          </p>
+        </div>
+        <div class="text-xs font-mono text-indigo-200 bg-slate-950/90 p-4 rounded-2xl border border-indigo-900/50 space-y-1 shrink-0">
+          <div class="flex items-center gap-1.5 text-emerald-400 font-bold"><span>✓</span> Sıfır harici ücretli API</div>
+          <div class="flex items-center gap-1.5 text-indigo-300"><span>✓</span> 1 Günde MVP üretim hazır</div>
+          <div class="flex items-center gap-1.5 text-teal-300"><span>✓</span> Doğrudan PyPI & CLI yayını</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6" id="ai-approved-grid">
+        <!-- Rendered by JS -->
       </div>
     </section>
 
@@ -237,6 +278,46 @@
           </button>
         </div>
         <button onclick="closeModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold">
+          Kapat
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Projeyle Devam Et Modal -->
+  <div id="proceed-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md hidden">
+    <div class="bg-slate-900 border border-indigo-500/50 rounded-3xl max-w-xl w-full p-6 space-y-5 shadow-2xl relative">
+      <button onclick="closeProceedModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-lg font-bold">✕</button>
+      
+      <div class="flex items-center gap-2">
+        <span id="p-id" class="px-2.5 py-0.5 rounded-full text-xs font-mono bg-indigo-500/20 text-indigo-300 font-bold border border-indigo-500/40">#1533</span>
+        <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">MİMARİ ONAYLANDI</span>
+      </div>
+
+      <div>
+        <h3 id="p-title" class="text-xl font-extrabold text-white leading-snug">Seçilen Proje Başlığı</h3>
+        <p id="p-cat" class="text-xs text-indigo-400 font-medium mt-1">Kategori</p>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono text-slate-400 uppercase font-bold">💬 Chat'e İletebileceğiniz Komut:</span>
+          <button onclick="copyProceedPrompt()" class="text-xs font-bold text-emerald-400 hover:text-emerald-300 flex items-center gap-1.5 px-2.5 py-1 rounded bg-emerald-950/60 border border-emerald-800 transition">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <span id="p-copy-btn-text">Mesajı Kopyala</span>
+          </button>
+        </div>
+        <div id="p-prompt-box" class="p-3 bg-slate-900 rounded-xl font-mono text-xs text-emerald-300 border border-slate-800 select-all cursor-pointer leading-relaxed" onclick="copyProceedPrompt()">
+        </div>
+        <p class="text-[11px] text-slate-500">Bu komutu kopyalayıp chat'e yazdığınızda Antigravity projeyi hemen kodlamaya ve paketlemeye başlayacaktır.</p>
+      </div>
+
+      <div class="flex items-center justify-between pt-3 border-t border-slate-800/80">
+        <button id="p-btn-supabase-approve" onclick="confirmSupabaseApproval()" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-2 shadow-lg shadow-emerald-600/20 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+          <span id="p-approve-btn-text">Supabase'de Resmi Onayla & Sıraya Al</span>
+        </button>
+        <button onclick="closeProceedModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold">
           Kapat
         </button>
       </div>
@@ -400,14 +481,23 @@
     }
 
     function switchTab(tab) {
-      ['projects', 'ideas', 'auditor'].forEach(t => {
-        document.getElementById(`tab-${t}`).classList.add('hidden');
-        document.getElementById(`tab-btn-${t}`).classList.remove('border-emerald-500', 'text-emerald-400');
-        document.getElementById(`tab-btn-${t}`).classList.add('border-transparent', 'text-slate-400');
+      ['projects', 'ideas', 'ai-approved', 'auditor'].forEach(t => {
+        const el = document.getElementById(`tab-${t}`);
+        const btn = document.getElementById(`tab-btn-${t}`);
+        if (el) el.classList.add('hidden');
+        if (btn) {
+          btn.classList.remove('border-emerald-500', 'text-emerald-400');
+          btn.classList.add('border-transparent', 'text-slate-400');
+        }
       });
-      document.getElementById(`tab-${tab}`).classList.remove('hidden');
-      document.getElementById(`tab-btn-${tab}`).classList.add('border-emerald-500', 'text-emerald-400');
-      document.getElementById(`tab-btn-${tab}`).classList.remove('border-transparent', 'text-slate-400');
+      const targetEl = document.getElementById(`tab-${tab}`);
+      const targetBtn = document.getElementById(`tab-btn-${tab}`);
+      if (targetEl) targetEl.classList.remove('hidden');
+      if (targetBtn) {
+        targetBtn.classList.add('border-emerald-500', 'text-emerald-400');
+        targetBtn.classList.remove('border-transparent', 'text-slate-400');
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function runSimulatedAudit() {
@@ -417,8 +507,367 @@
       res.classList.remove('hidden');
     }
 
+    // 🤖 ANTIGRAVITY AI ONAYLI SEÇKİN PROJELER LİSTESİ VE MİMARİLERİ
+    const aiApprovedProjects = [
+      {
+        id: 1533,
+        localId: 569,
+        name: "SnippetVault CLI",
+        title: "SnippetVault — Akıllı Terminal Komut ve Kod Parçacığı Yöneticisi",
+        category: "Geliştirici Verimliliği & DevOps",
+        effort: "1 Günlük MVP",
+        risk: "Düşük Risk",
+        score: "100/100 (A+)",
+        badgeColor: "indigo",
+        targetUser: "Yazılımcılar, DevOps ve Sistem Yöneticileri",
+        problem: "Sık kullanılan karmaşık bash/docker/kubectl/git komutları ve regex'ler sürekli unutuluyor; dağınık not defterlerinde veya tarayıcı geçmişinde kayboluyor.",
+        whyRecommended: "Her gün terminalde çalışan her geliştiricinin anında benimseyeceği, sıfır harici API bağımlılığı olan, son derece hızlı ve viralleşebilir bir araç.",
+        implementation: {
+          architecture: "Kullanıcı ev dizininde yerel SQLite (`~/.snippetvault/snippets.db`) üzerinde tag indeksli depolama. Sıfır harici servis.",
+          techStack: "Python 3.10+, Click / Typer, Rich (renkli terminal arayüzü), Pyperclip (panoya kopyalama)",
+          cliSyntax: [
+            "snippetvault add \"docker compose -f prod.yml up -d\" -t docker,prod -d \"Prod başlat\"",
+            "snippetvault find docker   # Bulanık/fuzzy arama ve tablo listesi",
+            "snippetvault copy 3        # Doğrudan işletim sistemi panosuna kopyalar",
+            "snippetvault run 3 --yes   # Onay alarak komutu terminalde koşturur"
+          ],
+          mvpCriteria: [
+            "Temel CRUD (ekle, listele, sil, etiketle) komutları hatasız çalışmalı",
+            "Etikete ve anahtar kelimeye göre arama sonuçları renkli tablo olarak listelenmeli",
+            "İstenen komut tek tuşla panoya kopyalanabilmeli veya onay ile çalıştırılabilmeli"
+          ]
+        }
+      },
+      {
+        id: 1530,
+        localId: 566,
+        name: "ChangelogHero CLI",
+        title: "ChangelogHero — Konvansiyonel Commit'lerden Otomatik CHANGELOG.md Üretici",
+        category: "Sürüm Yönetimi & CI/CD",
+        effort: "1 Günlük MVP",
+        risk: "Düşük Risk",
+        score: "100/100 (A+)",
+        badgeColor: "emerald",
+        targetUser: "Açık kaynak kütüphane sahipleri ve ürün geliştiricileri",
+        problem: "Her yeni sürümde Git commit geçmişinden elle CHANGELOG.md yazmak vakit alıyor, breaking changes ve önemli değişiklikler unutuluyor.",
+        whyRecommended: "Açık kaynak paket yayınlayan herkesin ilk aradığı, GitHub Actions ve CI/CD pipeline'larına tek satırda entegre edilebilen olmazsa olmaz bir araç.",
+        implementation: {
+          architecture: "Doğrudan `git log` çıktısını ayrıştırarak Conventional Commits kurallarına göre gruplayan yerel motor.",
+          techStack: "Python 3.10+, Git alt süreç çalıştırıcısı, Rich, Jinja2 şablonlama",
+          cliSyntax: [
+            "changeloghero generate --from v0.1.0 --to HEAD",
+            "changeloghero release --tag v1.0.0 --write   # CHANGELOG.md dosyasını otomatik günceller",
+            "changeloghero check                         # Commit mesajlarının standart formatını denetler"
+          ],
+          mvpCriteria: [
+            "Conventional commit tiplerini (feat, fix, docs, refactor, perf) doğru gruplamalı",
+            "BREAKING CHANGE uyarılarını en tepeye kırmızı kutu içinde vurgulamalı",
+            "Mevcut CHANGELOG.md dosyasını bozmadan yeni sürüm bloğunu en başa eklemeli"
+          ]
+        }
+      },
+      {
+        id: 1528,
+        localId: 564,
+        name: "TableMorph CLI",
+        title: "TableMorph — Çift Yönlü Markdown, CSV, JSON ve SQL Tablo Dönüştürücü",
+        category: "Veri İşleme & Unix Pipeline",
+        effort: "1 Günlük MVP",
+        risk: "Düşük Risk",
+        score: "100/100 (A+)",
+        badgeColor: "amber",
+        targetUser: "Veri analistleri, teknik yazarlar ve backend geliştiricileri",
+        problem: "Markdown tabloları, CSV, JSON listeleri ve SQL INSERT ifadeleri arasında geçiş yapmak için veri sızdırma riski olan üçüncü parti web sitelerine veri yapıştırmak gerekiyor.",
+        whyRecommended: "Hafif, Unix pipe dostu (`cat data.csv | tablemorph to-md`), hiçbir sunucuya veri göndermeyen %100 güvenli veri dönüştürücüsü.",
+        implementation: {
+          architecture: "Stdin ve dosya girdilerini bellek içinde ayrıştıran, streaming desteği olan modüler tablo formatlayıcı.",
+          techStack: "Python 3.10+, Standart kütüphane csv & json, Tabulate / Rich",
+          cliSyntax: [
+            "cat data.csv | tablemorph to-md             # Hizalanmış Markdown tablosu üretir",
+            "tablemorph to-sql users.json --table users  # SQL INSERT script'i üretir",
+            "tablemorph to-csv README.md --out data.csv  # Dokümandan CSV ayıklar",
+            "tablemorph inspect data.csv                 # Sütun tipleri ve eksik veri analizi"
+          ],
+          mvpCriteria: [
+            "CSV -> Markdown ve Markdown -> CSV çift yönlü dönüştürme hatasız olmalı",
+            "JSON listesinden SQL INSERT script'i oluşturabilmeli",
+            "Bozuk satır veya uyumsuz sütun sayısında anlaşılır hata vermeli"
+          ]
+        }
+      },
+      {
+        id: 1532,
+        localId: 568,
+        name: "MockNest CLI",
+        title: "MockNest — Sıfır Konfigürasyonlu Sahte JSON ve Yerel Mock REST API Sunucusu",
+        category: "Frontend & API Test Araçları",
+        effort: "1-2 Günlük MVP",
+        risk: "Düşük Risk",
+        score: "100/100 (A+)",
+        badgeColor: "purple",
+        targetUser: "Frontend, mobil geliştiriciler ve QA test mühendisleri",
+        problem: "Backend API henüz hazır değilken frontend ekipleri sahte JSON mock verileri üretmek ve sunmak için gereksiz yere karmaşık harici araçlarla uğraşıyor.",
+        whyRecommended: "Tek komutla yerel REST API ayağa kaldıran (`mocknest serve data.json`), CRUD işlemlerini bellek içinde destekleyen harika bir geliştirici dostu sunucu.",
+        implementation: {
+          architecture: "Standart kütüphane HTTP sunucusu üzerine inşa edilmiş dinamik router ve rota yöneticisi.",
+          techStack: "Python 3.10+, http.server veya lightweight Starlette, JSON şema doğrulayıcı",
+          cliSyntax: [
+            "mocknest serve schema.json --port 4000 --routes users,posts",
+            "mocknest generate --schema user_model.json --count 50",
+            "mocknest mock \"/api/v1/auth\" --status 200 --delay 300ms"
+          ],
+          mvpCriteria: [
+            "Tek JSON dosyasından otomatik GET /collection ve GET /collection/:id rotaları sunmalı",
+            "Gecikme simülasyonu (--delay 500ms) desteklemeli",
+            "CORS başlıklarını varsayılan olarak açık tutmalı"
+          ]
+        }
+      },
+      {
+        id: 1529,
+        localId: 565,
+        name: "RepoLens CLI",
+        title: "RepoLens — GitHub Organizasyon ve Yerel Repo Analiz & Sağlık Raporlayıcı",
+        category: "Kod Kalitesi & Repo Yönetimi",
+        effort: "1 Günlük MVP",
+        risk: "Düşük Risk",
+        score: "100/100 (A+)",
+        badgeColor: "sky",
+        targetUser: "Açık kaynak araştırmacıları, teknik liderler ve mühendisler",
+        problem: "Büyük organizasyonlardaki yüzlerce repo arasında dil, güncellik, lisans ve açık issue sayısına göre filtreleme yapmak GitHub arayüzünde zor.",
+        whyRecommended: "Mevcut Developer Quality Toolkit araçlarımızla (TokenGuard, EnvDoctor, DeadLinkFinder) kusursuz entegre olabilecek çatı denetçi.",
+        implementation: {
+          architecture: "Yerel dosya sistemi tarayıcısı + GitHub API v3 istemcisi (rate limit korumalı).",
+          techStack: "Python 3.10+, Requests / Urllib, Rich Tabloları",
+          cliSyntax: [
+            "repolens scan ~/projects                    # Yerel git depolarını listeler ve sağlık skorlar",
+            "repolens org <github-org> --filter-lang py  # Organizasyon genel taraması",
+            "repolens audit                              # Lisans, README, CI badge denetimi"
+          ],
+          mvpCriteria: [
+            "Yerel git repolarının son commit tarihi ve branch durumunu çıkarmalı",
+            "Lisansı eksik veya terk edilmiş repoları riskli olarak işaretlemeli",
+            "Çıktıyı hem terminal tablosu hem de CSV/Markdown olarak dışa aktarabilmeli"
+          ]
+        }
+      },
+      {
+        id: 1531,
+        localId: 567,
+        name: "DecisionLog CLI",
+        title: "DecisionLog — Mimari Karar Defteri (ADR) ve Toplantı Karar Takipçisi",
+        category: "Dokümantasyon & Mimari Yönetimi",
+        effort: "1 Günlük MVP",
+        risk: "Düşük Risk",
+        score: "100/100 (A+)",
+        badgeColor: "rose",
+        targetUser: "Yazılım mimarları, teknik liderler ve açık kaynak ekipleri",
+        problem: "Toplantılarda alınan kritik mimari kararlar, kütüphane tercihleri ve teknik kısıtlar sonrasında unutuluyor veya Slack mesajlarında kayboluyor.",
+        whyRecommended: "Endüstri standardı ADR (Architecture Decision Records) sürecini terminale getiren, takım hafızasını koruyan çok değerli bir araç.",
+        implementation: {
+          architecture: "Standart Markdown şablon motoru ve dizinleme mekanizması.",
+          techStack: "Python 3.10+, Pathlib, Click, Rich",
+          cliSyntax: [
+            "decisionlog new \"PostgreSQL Yerine SQLite Kullanımı\"",
+            "decisionlog status 3 --set accepted",
+            "decisionlog list                            # Kararların durum ve tarih matrisi",
+            "decisionlog export --format markdown        # Dokümantasyon indeksi üretir"
+          ],
+          mvpCriteria: [
+            "`docs/adr/0001-baslik.md` formatında otomatik şablon oluşturmalı",
+            "Kararların durumlarını (proposed, accepted, rejected, superseded) yönetebilmeli",
+            "README.md içerisine otomatik karar indeksi tablosu ekleyebilmeli"
+          ]
+        }
+      },
+      {
+        id: 1526,
+        localId: 562,
+        name: "ClientLoop CLI",
+        title: "ClientLoop — Freelancer & Bağımsız Geliştirici Müşteri Görev ve Teslim Takipçisi",
+        category: "Bağımsız Çalışanlar & Verimlilik",
+        effort: "1 Günlük MVP",
+        risk: "Düşük Risk",
+        score: "100/100 (A+)",
+        badgeColor: "teal",
+        targetUser: "Freelancer'lar, danışmanlar ve bağımsız geliştiriciler",
+        problem: "Serbest çalışanlar birden fazla müşterinin periyodik işlerini (haftalık yedekleme, aylık fatura, içerik yayını) takip etmekte zorlanıyor; hantal SaaS araçları zaman kaybettiriyor.",
+        whyRecommended: "Terminalden çıkmadan müşterileri, yinelenen rutinleri ve teslim tarihlerini takip etmeyi sağlayan pratik bir solopreneur aracı.",
+        implementation: {
+          architecture: "Yerel SQLite veritabanı (`~/.clientloop/clientloop.db`).",
+          techStack: "Python 3.10+, SQLite3, Typer/Click, Rich",
+          cliSyntax: [
+            "clientloop add --client \"Acme Inc\" --task \"Yedekleme\" --every 7d",
+            "clientloop today                           # Bugün teslim edilmesi gereken işler",
+            "clientloop done 4 --note \"S3'e yüklendi\"",
+            "clientloop report --client \"Acme Inc\"     # Müşteri teslim raporu"
+          ],
+          mvpCriteria: [
+            "Müşteri ve yinelenen görev oluşturma ve takip desteği",
+            "Günü gelen görevleri renklendirerek terminalde uyarma",
+            "Aylık teslimat raporunu Markdown olarak dışa aktarabilme"
+          ]
+        }
+      }
+    ];
+
+    let currentSelectedProject = null;
+
+    function renderAiApproved() {
+      const container = document.getElementById('ai-approved-grid');
+      if (!container) return;
+
+      container.innerHTML = aiApprovedProjects.map(p => `
+        <div class="p-6 rounded-3xl bg-slate-900/70 border border-slate-800 hover:border-indigo-500/50 flex flex-col justify-between space-y-5 shadow-xl transition group">
+          
+          <div class="space-y-4">
+            <!-- Header Badges -->
+            <div class="flex items-center justify-between gap-2 flex-wrap">
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/40">#${p.id}</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-800 text-slate-300">${p.category}</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">${p.score}</span>
+              </div>
+              <span class="text-xs font-mono text-amber-400 font-medium">⚡ ${p.effort}</span>
+            </div>
+
+            <!-- Title & User -->
+            <div>
+              <h3 class="text-lg font-bold text-white group-hover:text-indigo-300 transition leading-snug">${p.title}</h3>
+              <p class="text-xs text-indigo-400/90 font-medium mt-1">🎯 Hedef Kitle: ${p.targetUser}</p>
+            </div>
+
+            <!-- Problem -->
+            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800/80">
+              <span class="text-[11px] font-mono text-slate-400 uppercase font-bold block mb-1">Çözülen Problem:</span>
+              <p class="text-xs text-slate-300 leading-relaxed">${p.problem}</p>
+            </div>
+
+            <!-- Neden Seçildi -->
+            <div class="p-3.5 rounded-2xl bg-indigo-950/30 border border-indigo-900/40 text-xs">
+              <span class="font-mono text-indigo-300 font-bold block mb-1">⭐ Neden Bu Proje Seçildi?</span>
+              <p class="text-slate-300 leading-relaxed">${p.whyRecommended}</p>
+            </div>
+
+            <!-- Uygulama & Mimari Önerisi (Detaylı Kutu) -->
+            <div class="rounded-2xl bg-slate-950 border border-slate-800 p-4 space-y-2.5">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-mono text-emerald-400 font-bold flex items-center gap-1.5">
+                  <span>💡</span> Antigravity Uygulama & Mimari Önerisi
+                </span>
+                <span class="text-[10px] font-mono text-slate-500">Teknoloji: ${p.implementation.techStack.split(',')[0]}</span>
+              </div>
+              
+              <div class="text-xs text-slate-300 space-y-1">
+                <div class="text-[11px] text-slate-400"><strong class="text-slate-200">Mimari Kurgu:</strong> ${p.implementation.architecture}</div>
+                <div class="text-[11px] text-slate-400"><strong class="text-slate-200">Tech Stack:</strong> ${p.implementation.techStack}</div>
+              </div>
+
+              <!-- CLI Örnek Sözdizimi -->
+              <div class="pt-2">
+                <span class="text-[10px] font-mono text-slate-500 font-bold uppercase tracking-wider block mb-1">CLI Komut Tasarımı:</span>
+                <div class="bg-slate-900/90 p-2.5 rounded-xl font-mono text-[11px] text-emerald-300 border border-slate-800/80 space-y-1">
+                  ${p.implementation.cliSyntax.map(cmd => `<div>$ ${cmd}</div>`).join('')}
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Action Button -->
+          <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between gap-3">
+            <span class="text-xs font-mono text-slate-400">Paket: ${p.name.toLowerCase()}</span>
+            <button onclick="openProceedModal(${p.id})" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white font-bold text-xs flex items-center gap-2 shadow-lg shadow-indigo-950 transition hover:scale-[1.02]">
+              <svg class="w-4 h-4 text-indigo-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+              <span>🚀 Bu Projeyle Devam Edelim</span>
+            </button>
+          </div>
+
+        </div>
+      `).join('');
+    }
+
+    function openProceedModal(id) {
+      const p = aiApprovedProjects.find(item => item.id === id);
+      if (!p) return;
+      currentSelectedProject = p;
+
+      document.getElementById('p-id').innerText = `#${p.id}`;
+      document.getElementById('p-title').innerText = p.title;
+      document.getElementById('p-cat').innerText = `${p.category} • ${p.effort} • ${p.score}`;
+
+      const chatPrompt = `Kanka #${p.id} ${p.name} projesiyle devam edelim! Mimari önerisindeki tech stack (${p.implementation.techStack}) ve CLI tasarımına göre geliştirmeyi başlatalım.`;
+      document.getElementById('p-prompt-box').innerText = chatPrompt;
+      document.getElementById('p-copy-btn-text').innerText = "Mesajı Kopyala";
+      document.getElementById('p-approve-btn-text').innerText = "Supabase'de Resmi Onayla & Sıraya Al";
+
+      document.getElementById('proceed-modal').classList.remove('hidden');
+    }
+
+    function closeProceedModal() {
+      document.getElementById('proceed-modal').classList.add('hidden');
+      currentSelectedProject = null;
+    }
+
+    async function copyProceedPrompt() {
+      const box = document.getElementById('p-prompt-box');
+      if (!box) return;
+      const text = box.innerText;
+      try {
+        await navigator.clipboard.writeText(text);
+        document.getElementById('p-copy-btn-text').innerText = "✓ Kopyalandı!";
+        setTimeout(() => {
+          const btn = document.getElementById('p-copy-btn-text');
+          if (btn) btn.innerText = "Mesajı Kopyala";
+        }, 3000);
+      } catch (err) {
+        alert("Kopyalanamadı, lütfen metni seçerek kopyalayın: \n\n" + text);
+      }
+    }
+
+    async function confirmSupabaseApproval() {
+      if (!currentSelectedProject) return;
+      const id = currentSelectedProject.id;
+      const btn = document.getElementById('p-approve-btn-text');
+      if (btn) btn.innerText = "Supabase Güncelleniyor...";
+
+      try {
+        // 1. Supabase REST API Patch
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/ideas?id=eq.${id}`, {
+          method: 'PATCH',
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': `Bearer ${SUPABASE_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            status: 'approved',
+            approved_by: 'umut-ai-dashboard'
+          })
+        });
+
+        // 2. Localhost server attempt if available
+        fetch(`http://127.0.0.1:8080/api/ideas/${id}/approve`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ actor: 'umut-web-dashboard' })
+        }).catch(() => {});
+
+        if (res.ok) {
+          alert(`✅ Tebrikler! #${id} ${currentSelectedProject.name} Supabase Cloud üzerinde ONAYLANDI ve üretim kuyruğuna alındı!\n\nŞimdi chat'e kopyaladığınız mesajı yapıştırıp üretime başlayabilirsiniz.`);
+          closeProceedModal();
+          loadData();
+        } else {
+          alert('Supabase üzerinde onay kaydedilirken bir hata oluştu.');
+        }
+      } catch (err) {
+        alert('Bağlantı hatası: ' + err.message);
+      }
+    }
+
     // Initialize
     loadData();
+    renderAiApproved();
   </script>
 </body>
 </html>

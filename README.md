@@ -16,11 +16,26 @@
 
 ## 🌟 The Toolkit Suite
 
-| Tool | Problem It Solves | Key Capabilities | Marketplace Action | Release |
-| :--- | :--- | :--- | :--- | :---: |
-| 🛡️ **[TokenGuard](https://github.com/umutgungorr/tokenguard)** | Accidental secret & credential leaks | Pre-commit Git hook, Shannon entropy scan, baseline suppression, OASIS SARIF v2.1.0 | [`umutgungorr/tokenguard`](https://github.com/marketplace/actions/tokenguard-secret-scanner) | [`v0.2.0`](https://github.com/umutgungorr/tokenguard/releases/tag/v0.2.0) |
-| 🩺 **[EnvDoctor](https://github.com/umutgungorr/envdoctor)** | Environment contract drift & missing vars | `.env` vs `.env.example` sync, multiline quoted values, AST codebase variable audit | [`umutgungorr/envdoctor`](https://github.com/marketplace/actions/envdoctor-integrity-linter) | [`v0.2.0`](https://github.com/umutgungorr/envdoctor/releases/tag/v0.2.0) |
-| 🔗 **[DeadLinkFinder](https://github.com/umutgungorr/deadlinkfinder)** | Broken docs, 404 images & missing anchors | Offline-first relative link check, GitHub heading-anchor engine, SARIF line fingerprints | [`umutgungorr/deadlinkfinder`](https://github.com/marketplace/actions/deadlinkfinder-markdown-checker) | [`v0.2.1`](https://github.com/umutgungorr/deadlinkfinder/releases/tag/v0.2.1) |
+| Tool | Problem It Solves | Key Capabilities | PyPI Package | Marketplace Action | Release |
+| :--- | :--- | :--- | :--- | :--- | :---: |
+| 🛡️ **[TokenGuard](https://github.com/umutgungorr/tokenguard)** | Accidental secret & credential leaks | Pre-commit Git hook, Shannon entropy scan, baseline suppression, OASIS SARIF v2.1.0 | [![PyPI](https://img.shields.io/pypi/v/tokenguard-cli.svg?style=flat-square&logo=pypi&logoColor=white)](https://pypi.org/project/tokenguard-cli/) | [`umutgungorr/tokenguard`](https://github.com/marketplace/actions/tokenguard-secret-scanner) | [`v0.2.0`](https://github.com/umutgungorr/tokenguard/releases/tag/v0.2.0) |
+| 🩺 **[EnvDoctor](https://github.com/umutgungorr/envdoctor)** | Environment contract drift & missing vars | `.env` vs `.env.example` sync, multiline quoted values, AST codebase variable audit | [![PyPI](https://img.shields.io/pypi/v/envdoctor-cli.svg?style=flat-square&logo=pypi&logoColor=white)](https://pypi.org/project/envdoctor-cli/) | [`umutgungorr/envdoctor`](https://github.com/marketplace/actions/envdoctor-integrity-linter) | [`v0.2.0`](https://github.com/umutgungorr/envdoctor/releases/tag/v0.2.0) |
+| 🔗 **[DeadLinkFinder](https://github.com/umutgungorr/deadlinkfinder)** | Broken docs, 404 images & missing anchors | Offline-first relative link check, GitHub heading-anchor engine, SARIF line fingerprints | [![PyPI](https://img.shields.io/pypi/v/deadlinkfinder.svg?style=flat-square&logo=pypi&logoColor=white)](https://pypi.org/project/deadlinkfinder/) | [`umutgungorr/deadlinkfinder`](https://github.com/marketplace/actions/deadlinkfinder-markdown-checker) | [`v0.2.1`](https://github.com/umutgungorr/deadlinkfinder/releases/tag/v0.2.1) |
+
+### 📦 Local CLI Installation
+
+Install all three zero-dependency tools directly from PyPI:
+
+```bash
+pip install tokenguard-cli envdoctor-cli deadlinkfinder
+```
+
+Now run any tool directly in your terminal:
+```bash
+tokenguard --staged
+envdoctor check --strict
+deadlinkfinder docs/
+```
 
 ---
 

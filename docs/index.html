@@ -26,8 +26,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- Supabase JS Client -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
     code, pre, .font-mono { font-family: 'JetBrains Mono', monospace; }
@@ -41,7 +39,7 @@
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
 
   <!-- Header -->
-  <header class="border-b border-slate-800/80 glass sticky top-0 z-50 px-6 py-4 flex items-center justify-between">
+  <header class="border-b border-slate-800/80 glass sticky top-0 z-40 px-6 py-4 flex items-center justify-between">
     <div class="flex items-center gap-3">
       <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 p-0.5 shadow-lg shadow-emerald-500/20">
         <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center text-emerald-400 font-bold text-lg">
@@ -132,10 +130,7 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="projects-grid">
-        <!-- Will be populated by JS from Supabase -->
-        <div class="p-8 rounded-2xl bg-slate-900/40 border border-slate-800 text-center text-slate-500 animate-pulse">
-          Yükleniyor...
-        </div>
+        <!-- Loaded by JS -->
       </div>
     </section>
 
@@ -144,21 +139,21 @@
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h2 class="text-lg font-bold text-white">Açık Kaynak Ürün ve Fikir Havuzu</h2>
-          <p class="text-sm text-slate-400">Supabase bulutunda kayıtlı 1.906 fikir arasından filtreleyin ve onaylayın.</p>
+          <p class="text-sm text-slate-400">Herhangi bir fikre tıklayarak detayını inceleyebilir ve <strong>Onayla / Reddet</strong> butonlarıyla durumu güncelleyebilirsiniz.</p>
         </div>
         <div class="flex items-center gap-3">
-          <input type="text" id="idea-search" oninput="filterIdeas()" placeholder="Fikir ara..." class="px-4 py-2 bg-slate-900 border border-slate-800 rounded-xl text-sm text-white focus:outline-none focus:border-emerald-500 w-64">
+          <input type="text" id="idea-search" oninput="filterIdeas()" placeholder="Fikir ara (örn: changelog, mock)..." class="px-4 py-2 bg-slate-900 border border-slate-800 rounded-xl text-sm text-white focus:outline-none focus:border-emerald-500 w-72">
           <select id="idea-status-filter" onchange="filterIdeas()" class="px-4 py-2 bg-slate-900 border border-slate-800 rounded-xl text-sm text-slate-300 focus:outline-none focus:border-emerald-500">
             <option value="all">Tüm Durumlar</option>
-            <option value="approved">Onaylananlar (Approved)</option>
             <option value="pending_review">İnceleme Bekleyenler</option>
+            <option value="approved">Onaylananlar (Approved)</option>
             <option value="rejected">Elenenler</option>
           </select>
         </div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-5" id="ideas-grid">
-        <!-- Will be populated by JS -->
+        <!-- Loaded by JS -->
       </div>
     </section>
 
@@ -212,6 +207,42 @@
 
   </main>
 
+  <!-- Detail & Approval Modal -->
+  <div id="idea-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-xl w-full p-6 space-y-5 shadow-2xl relative">
+      <button onclick="closeModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-lg font-bold">✕</button>
+      
+      <div class="flex items-center gap-2">
+        <span id="m-id" class="px-2.5 py-0.5 rounded-full text-xs font-mono bg-slate-800 text-slate-300">#965</span>
+        <span id="m-status" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400">APPROVED</span>
+      </div>
+
+      <div>
+        <h3 id="m-title" class="text-xl font-bold text-white leading-snug">Fikir Başlığı</h3>
+        <p id="m-user" class="text-xs text-indigo-400 font-medium mt-1">Hedef Kitle</p>
+      </div>
+
+      <div class="p-4 rounded-xl bg-slate-950 border border-slate-800/80 space-y-2">
+        <span class="text-xs font-mono text-slate-400 block uppercase font-bold">Problem & Değer Önerisi:</span>
+        <p id="m-problem" class="text-sm text-slate-300 leading-relaxed"></p>
+      </div>
+
+      <div class="flex items-center justify-between pt-3 border-t border-slate-800/80">
+        <div class="flex items-center gap-2">
+          <button id="btn-approve" onclick="updateIdeaStatus('approved')" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-600/20 transition flex items-center gap-1.5">
+            <span>✅ Fikri Onayla</span>
+          </button>
+          <button id="btn-reject" onclick="updateIdeaStatus('rejected')" class="px-4 py-2.5 rounded-xl bg-rose-600/20 hover:bg-rose-600/30 border border-rose-500/30 text-rose-300 font-semibold text-sm transition flex items-center gap-1.5">
+            <span>❌ Reddet</span>
+          </button>
+        </div>
+        <button onclick="closeModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold">
+          Kapat
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Footer -->
   <footer class="border-t border-slate-800/80 px-6 py-4 text-center text-xs text-slate-500 glass">
     Developer Quality Toolkit © 2026 Umut Güngör • Powered by Supabase PostgreSQL & PyPI
@@ -222,7 +253,9 @@
     const SUPABASE_URL = 'https://tzsvgincmoumoxujyykm.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_QDTi7Dbk23olegSvCiN02A_TNw6jVEq';
 
-    // Direct REST API fetcher
+    let allIdeas = [];
+    let currentModalIdeaId = null;
+
     async function supabaseGet(table, query = '') {
       const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${query}`, {
         headers: {
@@ -233,16 +266,14 @@
       return await res.json();
     }
 
-    let allIdeas = [];
-
     async function loadData() {
       try {
-        // 1. Fetch Projects
+        // 1. Projects
         const projects = await supabaseGet('projects', 'select=*&order=id.asc');
         renderProjects(projects);
 
-        // 2. Fetch Ideas
-        allIdeas = await supabaseGet('ideas', 'select=*&limit=100&order=id.desc');
+        // 2. Ideas
+        allIdeas = await supabaseGet('ideas', 'select=*&limit=150&order=id.desc');
         renderIdeas(allIdeas);
       } catch (err) {
         console.error('Data loading error:', err);
@@ -290,7 +321,7 @@
       grid.innerHTML = ideas.map(idea => {
         const title = idea.curated_title || idea.title || 'Başlıksız Fikir';
         return `
-          <div class="p-5 rounded-2xl bg-slate-900/50 border border-slate-800/90 flex flex-col justify-between hover:border-slate-700 transition">
+          <div onclick="openIdeaModal(${idea.id})" class="p-5 rounded-2xl bg-slate-900/50 border border-slate-800/90 flex flex-col justify-between hover:border-emerald-500/50 hover:bg-slate-900/80 cursor-pointer transition group">
             <div>
               <div class="flex items-center justify-between mb-2">
                 <span class="text-[11px] font-mono text-slate-500">#${idea.id}</span>
@@ -302,17 +333,59 @@
                   ${idea.status.toUpperCase()}
                 </span>
               </div>
-              <h4 class="font-bold text-sm text-slate-200 line-clamp-2">${title}</h4>
+              <h4 class="font-bold text-sm text-slate-200 group-hover:text-emerald-400 transition line-clamp-2">${title}</h4>
               <p class="text-xs text-slate-400 mt-2 line-clamp-3">${idea.problem || 'Açıklama belirtilmedi.'}</p>
             </div>
 
             <div class="mt-4 pt-3 border-t border-slate-800/60 flex items-center justify-between">
               <span class="text-[11px] text-indigo-300 font-medium truncate max-w-[140px]">${idea.target_user || 'Geliştiriciler'}</span>
-              <span class="text-[11px] text-slate-500 font-mono">Risk: ${idea.risk_level || 'low'}</span>
+              <span class="text-[11px] text-emerald-400 font-semibold group-hover:translate-x-0.5 transition">İncele & Onayla →</span>
             </div>
           </div>
         `;
       }).join('');
+    }
+
+    function openIdeaModal(id) {
+      const idea = allIdeas.find(i => i.id === id);
+      if (!idea) return;
+      currentModalIdeaId = id;
+      document.getElementById('m-id').innerText = `#${idea.id}`;
+      document.getElementById('m-status').innerText = (idea.status || 'pending_review').toUpperCase();
+      document.getElementById('m-title').innerText = idea.curated_title || idea.title || 'Başlıksız Fikir';
+      document.getElementById('m-user').innerText = idea.target_user || 'Geliştiriciler ve Mühendisler';
+      document.getElementById('m-problem').innerText = idea.problem || 'Bu fikir için detaylı problem açıklaması henüz girilmedi.';
+
+      document.getElementById('idea-modal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('idea-modal').classList.add('hidden');
+      currentModalIdeaId = null;
+    }
+
+    async function updateIdeaStatus(newStatus) {
+      if (!currentModalIdeaId) return;
+      try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/ideas?id=eq.${currentModalIdeaId}`, {
+          method: 'PATCH',
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': `Bearer ${SUPABASE_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ status: newStatus })
+        });
+        if (res.ok) {
+          alert(`Fikir #${currentModalIdeaId} başarıyla '${newStatus.toUpperCase()}' olarak güncellendi!`);
+          closeModal();
+          loadData();
+        } else {
+          alert('Güncelleme sırasında hata oluştu.');
+        }
+      } catch (err) {
+        alert('Bağlantı hatası: ' + err.message);
+      }
     }
 
     function filterIdeas() {

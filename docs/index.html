@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="tr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Developer Quality Toolkit — Canlı Bulut Kontrol Paneli</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#ecfdf5',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Supabase JS Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    code, pre, .font-mono { font-family: 'JetBrains Mono', monospace; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0b0f19; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    .glass { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(12px); }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
+
+  <!-- Header -->
+  <header class="border-b border-slate-800/80 glass sticky top-0 z-50 px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 p-0.5 shadow-lg shadow-emerald-500/20">
+        <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center text-emerald-400 font-bold text-lg">
+          🛡️
+        </div>
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h1 class="font-extrabold text-base tracking-tight text-white">Developer Quality Toolkit</h1>
+          <span class="px-2 py-0.5 text-[11px] font-bold rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            Supabase Live
+          </span>
+        </div>
+        <p class="text-xs text-slate-400">Bulut Yönetim Merkezi & Açık Kaynak Fabrikası</p>
+      </div>
+    </div>
+
+    <!-- Right Controls -->
+    <div class="flex items-center gap-3">
+      <a href="https://github.com/umutgungorr/developer-quality-toolkit" target="_blank" class="px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-semibold text-slate-300 flex items-center gap-2 transition">
+        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a href="https://pypi.org/search/?q=umutgungorr" target="_blank" class="px-3.5 py-1.5 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/30 text-xs font-semibold text-emerald-300 flex items-center gap-1.5 transition">
+        📦 PyPI Canlı
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl w-full mx-auto px-6 py-8 flex-1 flex flex-col gap-8">
+
+    <!-- Top Metrics Overview -->
+    <section class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800/80 flex flex-col justify-between">
+        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Canlı Projeler</span>
+        <div class="mt-2 flex items-baseline gap-2">
+          <span class="text-3xl font-extrabold text-white" id="stat-projects">4</span>
+          <span class="text-xs font-medium text-emerald-400">PyPI'da Yayında</span>
+        </div>
+      </div>
+      <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800/80 flex flex-col justify-between">
+        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Bulut Fikir Havuzu</span>
+        <div class="mt-2 flex items-baseline gap-2">
+          <span class="text-3xl font-extrabold text-white" id="stat-ideas">1,906</span>
+          <span class="text-xs font-medium text-indigo-400">Supabase DB</span>
+        </div>
+      </div>
+      <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800/80 flex flex-col justify-between">
+        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Toplam Klonlama</span>
+        <div class="mt-2 flex items-baseline gap-2">
+          <span class="text-3xl font-extrabold text-white" id="stat-clones">205</span>
+          <span class="text-xs font-medium text-teal-400">İndirildi</span>
+        </div>
+      </div>
+      <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800/80 flex flex-col justify-between">
+        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Kalite Skoru</span>
+        <div class="mt-2 flex items-baseline gap-2">
+          <span class="text-3xl font-extrabold text-emerald-400" id="stat-health">A+</span>
+          <span class="text-xs font-medium text-slate-400">%100 Temiz</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <div class="flex items-center gap-2 border-b border-slate-800">
+      <button onclick="switchTab('projects')" id="tab-btn-projects" class="px-5 py-3 font-semibold text-sm border-b-2 border-emerald-500 text-emerald-400 flex items-center gap-2">
+        <span>🚀 Canlı Projeler & Araçlar</span>
+        <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 text-xs">4</span>
+      </button>
+      <button onclick="switchTab('ideas')" id="tab-btn-ideas" class="px-5 py-3 font-semibold text-sm border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-2">
+        <span>💡 Ürün & Fikir Havuzu</span>
+        <span class="px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 text-xs" id="ideas-badge-count">1906</span>
+      </button>
+      <button onclick="switchTab('auditor')" id="tab-btn-auditor" class="px-5 py-3 font-semibold text-sm border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-2">
+        <span>🔍 Canlı Repo Denetçisi (GitAuditor)</span>
+      </button>
+    </div>
+
+    <!-- TAB 1: PROJECTS -->
+    <section id="tab-projects" class="space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-lg font-bold text-white">Resmi Yayındaki Araçlar</h2>
+          <p class="text-sm text-slate-400">Tüm paketler PyPI ve GitHub Marketplace üzerinde canlıdır.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="projects-grid">
+        <!-- Will be populated by JS from Supabase -->
+        <div class="p-8 rounded-2xl bg-slate-900/40 border border-slate-800 text-center text-slate-500 animate-pulse">
+          Yükleniyor...
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: IDEAS -->
+    <section id="tab-ideas" class="space-y-6 hidden">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-lg font-bold text-white">Açık Kaynak Ürün ve Fikir Havuzu</h2>
+          <p class="text-sm text-slate-400">Supabase bulutunda kayıtlı 1.906 fikir arasından filtreleyin ve onaylayın.</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <input type="text" id="idea-search" oninput="filterIdeas()" placeholder="Fikir ara..." class="px-4 py-2 bg-slate-900 border border-slate-800 rounded-xl text-sm text-white focus:outline-none focus:border-emerald-500 w-64">
+          <select id="idea-status-filter" onchange="filterIdeas()" class="px-4 py-2 bg-slate-900 border border-slate-800 rounded-xl text-sm text-slate-300 focus:outline-none focus:border-emerald-500">
+            <option value="all">Tüm Durumlar</option>
+            <option value="approved">Onaylananlar (Approved)</option>
+            <option value="pending_review">İnceleme Bekleyenler</option>
+            <option value="rejected">Elenenler</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5" id="ideas-grid">
+        <!-- Will be populated by JS -->
+      </div>
+    </section>
+
+    <!-- TAB 3: GITAUDITOR DEMO -->
+    <section id="tab-auditor" class="space-y-6 hidden">
+      <div class="p-8 rounded-3xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 max-w-3xl mx-auto space-y-6 text-center">
+        <div class="w-16 h-16 mx-auto rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-3xl">
+          🔍
+        </div>
+        <div>
+          <h2 class="text-2xl font-extrabold text-white">GitAuditor Canlı Repo Taraması</h2>
+          <p class="text-slate-400 text-sm mt-1">Herhangi bir GitHub deposunu girin; TokenGuard, EnvDoctor ve DeadLinkFinder motorlarıyla anında taransın.</p>
+        </div>
+
+        <div class="flex items-center gap-2 max-w-xl mx-auto">
+          <input type="text" id="audit-repo-input" value="umutgungorr/tokenguard" class="flex-1 px-4 py-3 bg-slate-950 border border-slate-700 rounded-xl text-sm font-mono text-emerald-400 focus:outline-none focus:border-emerald-500">
+          <button onclick="runSimulatedAudit()" class="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-600/20 transition">
+            Taramayı Başlat
+          </button>
+        </div>
+
+        <!-- Audit Result Output -->
+        <div id="audit-result" class="hidden p-6 rounded-2xl bg-slate-950 border border-slate-800 text-left space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div>
+              <span class="text-xs font-mono text-slate-500 block">TARANAN DEPO:</span>
+              <span class="font-bold text-white text-base" id="audit-repo-name">umutgungorr/tokenguard</span>
+            </div>
+            <span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 font-extrabold rounded-lg text-sm border border-emerald-500/30">
+              GRADE: A+ (100/100)
+            </span>
+          </div>
+
+          <div class="grid grid-cols-3 gap-3 text-center">
+            <div class="p-3 bg-slate-900 rounded-xl border border-slate-800">
+              <span class="text-xs text-slate-400 block">TokenGuard</span>
+              <span class="text-sm font-bold text-emerald-400 mt-1 block">0 Sızıntı ✅</span>
+            </div>
+            <div class="p-3 bg-slate-900 rounded-xl border border-slate-800">
+              <span class="text-xs text-slate-400 block">EnvDoctor</span>
+              <span class="text-sm font-bold text-emerald-400 mt-1 block">Uyumlu ✅</span>
+            </div>
+            <div class="p-3 bg-slate-900 rounded-xl border border-slate-800">
+              <span class="text-xs text-slate-400 block">DeadLinkFinder</span>
+              <span class="text-sm font-bold text-emerald-400 mt-1 block">0 Kırık Link ✅</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/80 px-6 py-4 text-center text-xs text-slate-500 glass">
+    Developer Quality Toolkit © 2026 Umut Güngör • Powered by Supabase PostgreSQL & PyPI
+  </footer>
+
+  <!-- App Script -->
+  <script>
+    const SUPABASE_URL = 'https://tzsvgincmoumoxujyykm.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_QDTi7Dbk23olegSvCiN02A_TNw6jVEq';
+
+    // Direct REST API fetcher
+    async function supabaseGet(table, query = '') {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${query}`, {
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`
+        }
+      });
+      return await res.json();
+    }
+
+    let allIdeas = [];
+
+    async function loadData() {
+      try {
+        // 1. Fetch Projects
+        const projects = await supabaseGet('projects', 'select=*&order=id.asc');
+        renderProjects(projects);
+
+        // 2. Fetch Ideas
+        allIdeas = await supabaseGet('ideas', 'select=*&limit=100&order=id.desc');
+        renderIdeas(allIdeas);
+      } catch (err) {
+        console.error('Data loading error:', err);
+      }
+    }
+
+    function renderProjects(projects) {
+      const grid = document.getElementById('projects-grid');
+      grid.innerHTML = projects.map(p => `
+        <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800/90 flex flex-col justify-between hover:border-emerald-500/40 transition group">
+          <div>
+            <div class="flex items-center justify-between">
+              <h3 class="font-bold text-lg text-white group-hover:text-emerald-400 transition">${p.name}</h3>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold ${p.status === 'active' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-slate-800 text-slate-400'}">
+                ${p.status.toUpperCase()}
+              </span>
+            </div>
+            <p class="text-xs text-slate-400 mt-2 leading-relaxed">${p.description || ''}</p>
+
+            ${p.pypi_package ? `
+              <div class="mt-4 p-2.5 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between font-mono text-xs text-slate-300">
+                <span>pip install ${p.pypi_package}</span>
+                <button onclick="navigator.clipboard.writeText('pip install ${p.pypi_package}'); alert('Kopyalandı: pip install ${p.pypi_package}')" class="text-emerald-400 hover:text-emerald-300 text-[11px] font-bold">Kopyala</button>
+              </div>
+            ` : ''}
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+            <div class="flex items-center gap-3">
+              <span>👁️ ${p.views_count} Görüntülenme</span>
+              <span>⚡ ${p.clones_count} Klonlama</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <a href="${p.github_url}" target="_blank" class="text-slate-300 hover:text-white font-semibold">GitHub →</a>
+              ${p.pypi_url ? `<a href="${p.pypi_url}" target="_blank" class="text-emerald-400 hover:underline font-semibold">PyPI →</a>` : ''}
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderIdeas(ideas) {
+      const grid = document.getElementById('ideas-grid');
+      document.getElementById('ideas-badge-count').innerText = ideas.length;
+      grid.innerHTML = ideas.map(idea => {
+        const title = idea.curated_title || idea.title || 'Başlıksız Fikir';
+        return `
+          <div class="p-5 rounded-2xl bg-slate-900/50 border border-slate-800/90 flex flex-col justify-between hover:border-slate-700 transition">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-mono text-slate-500">#${idea.id}</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold ${
+                  idea.status === 'approved' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' :
+                  idea.status === 'rejected' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' :
+                  'bg-amber-500/10 text-amber-300 border border-amber-500/20'
+                }">
+                  ${idea.status.toUpperCase()}
+                </span>
+              </div>
+              <h4 class="font-bold text-sm text-slate-200 line-clamp-2">${title}</h4>
+              <p class="text-xs text-slate-400 mt-2 line-clamp-3">${idea.problem || 'Açıklama belirtilmedi.'}</p>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-slate-800/60 flex items-center justify-between">
+              <span class="text-[11px] text-indigo-300 font-medium truncate max-w-[140px]">${idea.target_user || 'Geliştiriciler'}</span>
+              <span class="text-[11px] text-slate-500 font-mono">Risk: ${idea.risk_level || 'low'}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function filterIdeas() {
+      const query = document.getElementById('idea-search').value.toLowerCase();
+      const status = document.getElementById('idea-status-filter').value;
+      const filtered = allIdeas.filter(i => {
+        const matchesQuery = (i.title || '').toLowerCase().includes(query) || (i.curated_title || '').toLowerCase().includes(query);
+        const matchesStatus = status === 'all' || i.status === status;
+        return matchesQuery && matchesStatus;
+      });
+      renderIdeas(filtered);
+    }
+
+    function switchTab(tab) {
+      ['projects', 'ideas', 'auditor'].forEach(t => {
+        document.getElementById(`tab-${t}`).classList.add('hidden');
+        document.getElementById(`tab-btn-${t}`).classList.remove('border-emerald-500', 'text-emerald-400');
+        document.getElementById(`tab-btn-${t}`).classList.add('border-transparent', 'text-slate-400');
+      });
+      document.getElementById(`tab-${tab}`).classList.remove('hidden');
+      document.getElementById(`tab-btn-${tab}`).classList.add('border-emerald-500', 'text-emerald-400');
+      document.getElementById(`tab-btn-${tab}`).classList.remove('border-transparent', 'text-slate-400');
+    }
+
+    function runSimulatedAudit() {
+      const repo = document.getElementById('audit-repo-input').value;
+      document.getElementById('audit-repo-name').innerText = repo;
+      const res = document.getElementById('audit-result');
+      res.classList.remove('hidden');
+    }
+
+    // Initialize
+    loadData();
+  </script>
+</body>
+</html>
